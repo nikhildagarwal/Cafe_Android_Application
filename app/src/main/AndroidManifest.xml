@@ -13,6 +13,21 @@
         android:theme="@style/Theme.Project5CafeApp"
         tools:targetApi="31">
         <activity
+            android:name=".ItemSelectedActivity"
+            android:exported="false" />
+        <activity
+            android:name=".storeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".basketActivity"
+            android:exported="false" />
+        <activity
+            android:name=".coffeeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".donutActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

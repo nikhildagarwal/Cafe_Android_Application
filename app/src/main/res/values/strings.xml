@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Project5CafeApp</string>
+    <string-array name="itemNames">
+        <item>Yeast</item>
+        <item>Glazed</item>
+        <item>Jelly</item>
+        <item>Cinnamon Sugar</item>
+        <item>Boston Cream</item>
+        <item>Powdered Sugar</item>
+        <item>Plain Vanilla</item>
+        <item>Chocolate Cake</item>
+        <item>Strawberry Short-Cake</item>
+        <item>Glazed Hole</item>
+        <item>Chocolate Hole</item>
+        <item>Jelly Hole</item>
+    </string-array>
 </resources>
