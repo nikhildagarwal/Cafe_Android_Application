@@ -24,4 +24,18 @@ public abstract class MenuItem{
      */
     @Override
     public abstract boolean equals(Object obj);
+
+    public String getMenuItemType(){
+        String itemAsString = this.toString();
+        String result = "";
+        if(itemAsString.charAt(0)=='C'){
+            result += "C ";
+        }else if(itemAsString.charAt(0)=='D'){
+            result += "D ";
+        }else if(itemAsString.charAt(0)=='Y'){
+            result += "Y ";
+        }
+        result += itemAsString.split(" ")[3];
+        return result;
+    }
 }

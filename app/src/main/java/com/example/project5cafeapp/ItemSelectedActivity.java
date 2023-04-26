@@ -2,11 +2,13 @@ package com.example.project5cafeapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.app.AlertDialog;
@@ -28,6 +30,11 @@ import com.example.project5cafeapp.data.MenuItem;
 import com.example.project5cafeapp.donut.flavors.CakeFlavor;
 import com.example.project5cafeapp.donut.flavors.HoleFlavor;
 import com.example.project5cafeapp.donut.flavors.YeastFlavor;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class ItemSelectedActivity extends AppCompatActivity {
     private Button btn_itemName;
@@ -86,16 +93,56 @@ public class ItemSelectedActivity extends AppCompatActivity {
         });
     }
 
-    private String formatDouble(double ourDouble){
-        return Double.toString( Math.round(ourDouble*100.00) / 100.00);
+    public void addDonutToBasket(View view){
+        AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
+        alert.setTitle("Add to Order");
+        alert.setMessage(donutAmountSpinner.getSelectedItem().toString() +" x "+ donutFlavorSelected.getText()+"\n"+price.getText().toString().split(" ")[1]);
+        alert.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                MenuItem menuItem = getMenuItem(donutFlavorSelected.getText().toString());
+                String amount = donutAmountSpinner.getSelectedItem().toString();
+                BasketItem basketItem = new BasketItem(menuItem,Integer.parseInt(amount));
+                /**
+                 * Add basketItem to basket
+                 */
+                SharedPreferences preferences = getSharedPreferences("data_shared",MODE_PRIVATE);
+                String json = preferences.getString("basket",null);
+
+                if (json != null) {
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<ArrayList<String>>(){}.getType();
+                    ArrayList<String> basket = gson.fromJson(json, type);
+                    Log.d("basket",basket.toString());
+                    String basketCode = menuItem.getMenuItemType()+" "+amount;
+                    basket.add(basketCode);
+                    Log.d("basket",basket.toString());
+                    /**
+                     * Section end
+                     */
+                    SharedPreferences pref = getSharedPreferences("data_shared",MODE_PRIVATE);
+                    Gson g = new Gson();
+                    String jsonToPut = g.toJson(basket);
+                    SharedPreferences.Editor newEdit = pref.edit();
+                    newEdit.putString("basket",jsonToPut);
+                    newEdit.apply();
+                    Toast.makeText(view.getContext(),basketItem.toString()+" Added.", Toast.LENGTH_LONG).show();
+                }
+            }
+            //handle the "NO" click
+        }).setNegativeButton("no", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(view.getContext(),
+                        "Item Not Added.", Toast.LENGTH_LONG).show();
+            }
+        });
+        AlertDialog dialog = alert.create();
+        dialog.show();
+
+
     }
 
-    public void addDonutToBasket(View view){
-        MenuItem menuItem = getMenuItem(donutFlavorSelected.getText().toString());
-        String amount = donutAmountSpinner.getSelectedItem().toString();
-        BasketItem basketItem = new BasketItem(menuItem,Integer.parseInt(amount));
-        Toast.makeText(view.getContext(),basketItem.toString()+" Added.", Toast.LENGTH_LONG).show();
-
+    private String formatDouble(double ourDouble){
+        return format(Math.round(ourDouble*100.00) / 100.00);
     }
 
     private MenuItem getMenuItem(String name){
@@ -150,5 +197,17 @@ public class ItemSelectedActivity extends AppCompatActivity {
             }
         }
         return null;
+    }
+
+    private String format(double num){
+        String numString = Double.toString(num);
+        String back = numString.split("\\.")[1];
+        String front = numString.split("\\.")[0];
+        if(back.length()<2){
+            while(back.length()<2){
+                back += "0";
+            }
+        }
+        return front +"."+back;
     }
 }

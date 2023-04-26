@@ -54,11 +54,11 @@
 
             <Button
                 android:id="@+id/btn_add"
-                android:layout_width="115dp"
+                android:layout_width="75dp"
                 android:layout_height="43dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginBottom="32dp"
-                android:text="Quick Add"
+                android:text="Info"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"

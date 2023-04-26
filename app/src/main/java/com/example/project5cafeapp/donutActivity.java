@@ -63,14 +63,14 @@ public class donutActivity extends AppCompatActivity {
             String[] nameArray = itemNames[i].split(" ");
             if(nameArray.length > 1){
                 if(nameArray[nameArray.length-1].equals("Hole")){
-                    items.add(new Item(itemNames[i], itemImages[i], Double.toString(d1.itemPrice())));
+                    items.add(new Item(itemNames[i], itemImages[i], "$"+Double.toString(d1.itemPrice())));
                 }else if(nameArray[nameArray.length-1].equals("Cake")){
-                    items.add(new Item(itemNames[i], itemImages[i], Double.toString(c1.itemPrice())));
+                    items.add(new Item(itemNames[i], itemImages[i], "$"+Double.toString(c1.itemPrice())));
                 }else{
-                    items.add(new Item(itemNames[i], itemImages[i], Double.toString(y1.itemPrice())));
+                    items.add(new Item(itemNames[i], itemImages[i], "$"+Double.toString(y1.itemPrice())));
                 }
             }else{
-                items.add(new Item(itemNames[i], itemImages[i], Double.toString(y1.itemPrice())));
+                items.add(new Item(itemNames[i], itemImages[i], "$"+Double.toString(y1.itemPrice())));
             }
 
         }

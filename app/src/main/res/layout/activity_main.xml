@@ -6,76 +6,136 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Rutgers Cafe"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.105" />
 
-    <ImageButton
-        android:id="@+id/mainDonut"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="173dp"
-        android:layout_marginEnd="68dp"
-        android:layout_marginBottom="93dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/maindonuts"
-        app:layout_constraintBottom_toTopOf="@+id/orderBasket"
-        app:layout_constraintEnd_toStartOf="@+id/mainCoffee"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="Order Donuts"/>
 
-    <ImageButton
-        android:id="@+id/mainCoffee"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="173dp"
-        android:layout_marginEnd="46dp"
-        android:layout_marginBottom="93dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/maincoffee"
-        app:layout_constraintBottom_toTopOf="@+id/storeOrders"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/mainDonut"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="Order Coffee"/>
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Donuts"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.179"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.433" />
 
-    <ImageButton
-        android:id="@+id/orderBasket"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="41dp"
-        android:layout_marginEnd="66dp"
-        android:layout_marginBottom="203dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/mainbasket"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/storeOrders"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainDonut"
-        android:contentDescription="Order Basket"/>
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Basket"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.189"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.755" />
 
-    <ImageButton
-        android:id="@+id/storeOrders"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="203dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/mainstoreorders"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/orderBasket"
-        app:layout_constraintTop_toBottomOf="@+id/mainCoffee"
-        android:contentDescription="Store Orders"/>
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Coffee"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.782"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.433" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Store Orders"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.845"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.755" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rutgers Cafe"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.105" />
+
+        <ImageButton
+            android:id="@+id/mainDonut"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="41dp"
+            android:layout_marginTop="173dp"
+            android:layout_marginEnd="68dp"
+            android:layout_marginBottom="93dp"
+            android:contentDescription=""
+            android:scaleType="fitCenter"
+            android:src="@drawable/maindonuts"
+            app:layout_constraintBottom_toTopOf="@+id/orderBasket"
+            app:layout_constraintEnd_toStartOf="@+id/mainCoffee"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/mainCoffee"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="173dp"
+            android:layout_marginEnd="46dp"
+            android:layout_marginBottom="93dp"
+            android:contentDescription=""
+            android:scaleType="fitCenter"
+            android:src="@drawable/maincoffee"
+            app:layout_constraintBottom_toTopOf="@+id/storeOrders"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/mainDonut"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/orderBasket"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="41dp"
+            android:layout_marginEnd="66dp"
+            android:layout_marginBottom="203dp"
+            android:contentDescription=""
+            android:scaleType="fitCenter"
+            android:src="@drawable/mainbasket"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/storeOrders"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainDonut" />
+
+        <ImageButton
+            android:id="@+id/storeOrders"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginBottom="203dp"
+            android:contentDescription=""
+            android:scaleType="fitCenter"
+            android:src="@drawable/mainstoreorders"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/orderBasket"
+            app:layout_constraintTop_toBottomOf="@+id/mainCoffee" />
+
+
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
