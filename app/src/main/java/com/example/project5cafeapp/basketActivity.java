@@ -95,19 +95,23 @@ public class basketActivity extends AppCompatActivity {
                 if(previousPosition==-1){
                     Toast.makeText(basketView.getContext(), "Nothing Selected to Remove!", Toast.LENGTH_SHORT).show();
                 }else{
-
-                    BasketItem selected = adapter.getItem(previousPosition);
-                    adapter.remove(selected);
-                    SharedPreferences preferences = getSharedPreferences("data_shared",MODE_PRIVATE);
-                    SharedPreferences.Editor ed = preferences.edit();
-                    Gson gson = new Gson();
-                    basket.remove(previousPosition);
-                    String json = gson.toJson(basket);
-                    ed.putString("basket",json);
-                    ed.apply();
-                    basketView.setAdapter(adapter);
-                    displayTotal(adapter);
-                    displayTax(total.getText().toString());
+                    try{
+                        BasketItem selected = adapter.getItem(previousPosition);
+                        adapter.remove(selected);
+                        SharedPreferences preferences = getSharedPreferences("data_shared",MODE_PRIVATE);
+                        SharedPreferences.Editor ed = preferences.edit();
+                        Gson gson = new Gson();
+                        basket.remove(previousPosition);
+                        String json = gson.toJson(basket);
+                        ed.putString("basket",json);
+                        ed.apply();
+                        basketView.setAdapter(adapter);
+                        displayTotal(adapter);
+                        displayTax(total.getText().toString());
+                        Toast.makeText(basketView.getContext(), selected.toString()+" removed.", Toast.LENGTH_SHORT).show();
+                    }catch (Exception e){
+                        Toast.makeText(basketView.getContext(), "Basket is Empty!", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
