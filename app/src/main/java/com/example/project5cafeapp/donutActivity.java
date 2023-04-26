@@ -9,6 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
+import com.example.project5cafeapp.donut.CakeDonut;
+import com.example.project5cafeapp.donut.DonutHole;
+import com.example.project5cafeapp.donut.YeastDonut;
+
 import java.util.ArrayList;
 public class donutActivity extends AppCompatActivity {
 
@@ -52,8 +56,23 @@ public class donutActivity extends AppCompatActivity {
         /* Add the items to the ArrayList.
            item price set , should change later to actual price depending on donut type and such
          */
+        CakeDonut c1 = new CakeDonut();
+        YeastDonut y1 = new YeastDonut();
+        DonutHole d1 = new DonutHole();
         for (int i = 0; i < itemNames.length; i++) {
-            items.add(new Item(itemNames[i], itemImages[i], "$1.39"));
+            String[] nameArray = itemNames[i].split(" ");
+            if(nameArray.length > 1){
+                if(nameArray[nameArray.length-1].equals("Hole")){
+                    items.add(new Item(itemNames[i], itemImages[i], Double.toString(d1.itemPrice())));
+                }else if(nameArray[nameArray.length-1].equals("Cake")){
+                    items.add(new Item(itemNames[i], itemImages[i], Double.toString(c1.itemPrice())));
+                }else{
+                    items.add(new Item(itemNames[i], itemImages[i], Double.toString(y1.itemPrice())));
+                }
+            }else{
+                items.add(new Item(itemNames[i], itemImages[i], Double.toString(y1.itemPrice())));
+            }
+
         }
     }
 }

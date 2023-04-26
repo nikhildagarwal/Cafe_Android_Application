@@ -113,7 +113,7 @@ class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsHolder>{
                 @Override
                 public void onClick(View view) {
                     AlertDialog.Builder alert = new AlertDialog.Builder(itemView.getContext());
-                    alert.setTitle("Add to order");
+                    alert.setTitle("Quick Add to Basket");
                     alert.setMessage(tv_name.getText().toString());
                     //handle the "YES" click
                     //this method only has the alertdialog so far, the order is not actually added yet to the basket

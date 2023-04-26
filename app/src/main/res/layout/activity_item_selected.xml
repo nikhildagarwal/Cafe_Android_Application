@@ -20,6 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:onClick="addDonutToBasket"
         android:id="@+id/btn1"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -58,9 +59,8 @@
         android:layout_height="50dp"
         android:layout_marginStart="118dp"
         android:layout_marginBottom="48dp"
-        android:ems="10"
-        android:enabled="false"
-        android:inputType="none"
+        android:textSize="25dp"
+        android:editable="false"
         android:text="Price:"
         app:layout_constraintBottom_toTopOf="@+id/btn1"
         app:layout_constraintStart_toStartOf="@+id/btn1"
