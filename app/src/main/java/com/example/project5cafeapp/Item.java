@@ -1,8 +1,11 @@
-
-
+/**
+ * Project package
+ */
 package com.example.project5cafeapp;
 
-//professor's example might have to change this later
+/**
+ * This class defines the data structure of Item which will be used in the RecyclerView
+ */
 public class Item {
     private String itemName;
     private int image;
