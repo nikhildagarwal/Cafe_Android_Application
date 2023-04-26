@@ -18,6 +18,9 @@ import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.project5cafeapp.cofee.AddOn;
+import com.example.project5cafeapp.cofee.Coffee;
+import com.example.project5cafeapp.cofee.Size;
 import com.example.project5cafeapp.data.BasketItem;
 import com.example.project5cafeapp.data.MenuItem;
 import com.example.project5cafeapp.donut.CakeDonut;
@@ -32,6 +35,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 
 public class basketActivity extends AppCompatActivity {
 
@@ -137,6 +141,7 @@ public class basketActivity extends AppCompatActivity {
 
     private BasketItem extractMenuItem(String code){
         String[] codes = code.split(" ");
+        Log.d("array",Arrays.toString(codes));
         if(codes[0].equals("C")){
             switch(codes[1]){
                 case "Strawberry":
@@ -155,7 +160,7 @@ public class basketActivity extends AppCompatActivity {
                 case "Chocolate":
                     return new BasketItem(new DonutHole(HoleFlavor.CHOCOLATE),Integer.parseInt(codes[2]));
             }
-        }else{
+        }else if(codes[0].equals("Y")){
             switch(codes[1]){
                 case "Classic":
                     return new BasketItem(new YeastDonut(YeastFlavor.PLAIN),Integer.parseInt(codes[2]));
@@ -169,6 +174,33 @@ public class basketActivity extends AppCompatActivity {
                     return new BasketItem(new YeastDonut(YeastFlavor.CREAM),Integer.parseInt(codes[2]));
                 case "Powdered":
                     return new BasketItem(new YeastDonut(YeastFlavor.SUGAR),Integer.parseInt(codes[2]));
+            }
+        }else if(codes[0].equals("Z")){
+            HashSet<AddOn> addOns = new HashSet<>();
+            if(codes[1].equals("true")){
+                addOns.add(AddOn.SWEETCREAM);
+            }
+            if(codes[2].equals("true")){
+                addOns.add(AddOn.MOCHA);
+            }
+            if(codes[3].equals("true")){
+                addOns.add(AddOn.FRENCHVANILLA);
+            }
+            if(codes[4].equals("true")){
+                addOns.add(AddOn.CARAMEL);
+            }
+            if(codes[5].equals("true")){
+                addOns.add(AddOn.IRISHCREAM);
+            }
+            switch(codes[6]){
+                case "Short":
+                    return new BasketItem(new Coffee(Size.SHORT,addOns),Integer.parseInt(codes[7]));
+                case "Tall":
+                    return new BasketItem(new Coffee(Size.TALL,addOns),Integer.parseInt(codes[7]));
+                case "Grande":
+                    return new BasketItem(new Coffee(Size.GRANDE,addOns),Integer.parseInt(codes[7]));
+                case "Venti":
+                    return new BasketItem(new Coffee(Size.VENTI,addOns),Integer.parseInt(codes[7]));
             }
         }
         return null;

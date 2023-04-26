@@ -33,15 +33,15 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences pref = getSharedPreferences("data_shared",MODE_PRIVATE);
         Boolean visited = pref.getBoolean("visited",false);
         Log.d("dfs",visited.toString());
-        if(!visited){
+        if(!visited) {
             ArrayList<String> initBasket = new ArrayList<>();
             Gson gson = new Gson();
             String json = gson.toJson(initBasket);
             SharedPreferences.Editor editor = pref.edit();
-            editor.putString("basket",json);
-            editor.putBoolean("visited",true);
+            editor.putString("basket", json);
+            editor.putBoolean("visited", true);
             editor.apply();
-            Log.d("sup","done");
+            Log.d("sup", "done");
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

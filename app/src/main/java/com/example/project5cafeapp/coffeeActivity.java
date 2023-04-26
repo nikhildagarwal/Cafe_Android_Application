@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -18,8 +20,16 @@ import android.widget.Toast;
 import com.example.project5cafeapp.cofee.AddOn;
 import com.example.project5cafeapp.cofee.Coffee;
 import com.example.project5cafeapp.cofee.Size;
+import com.example.project5cafeapp.data.BasketItem;
 import com.example.project5cafeapp.data.MenuItem;
+import com.example.project5cafeapp.donut.CakeDonut;
+import com.example.project5cafeapp.donut.DonutHole;
+import com.example.project5cafeapp.donut.YeastDonut;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class coffeeActivity extends AppCompatActivity{
@@ -36,6 +46,7 @@ public class coffeeActivity extends AppCompatActivity{
     private CheckBox vanillaBox;
     private CheckBox caramelBox;
     private CheckBox creamBox;
+    private Button addToOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +68,30 @@ public class coffeeActivity extends AppCompatActivity{
         vanillaBox = findViewById(R.id.checkBox3);
         caramelBox = findViewById(R.id.checkBox4);
         creamBox = findViewById(R.id.checkBox5);
+
+        addToOrder = findViewById(R.id.button);
+
+        coffeeAmountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                updatePrice(view);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                total.setText("$0.00");
+            }
+        });
+
+        coffeeSizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                updatePrice(view);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                total.setText("$0.00");
+            }
+        });
     }
 
     public void updatePrice(View view){
@@ -65,11 +100,6 @@ public class coffeeActivity extends AppCompatActivity{
         boolean fv = vanillaBox.isChecked();
         boolean c = caramelBox.isChecked();
         boolean ic = creamBox.isChecked();
-        Log.d("no",sc+"");
-        Log.d("no",m+"");
-        Log.d("no",fv+"");
-        Log.d("no",c+"");
-        Log.d("no",ic+"");
         HashSet<AddOn> addOns = new HashSet<>();
         if(sc){
             addOns.add(AddOn.SWEETCREAM);
@@ -90,6 +120,97 @@ public class coffeeActivity extends AppCompatActivity{
         int quantity = Integer.parseInt(coffeeAmountSpinner.getSelectedItem().toString());
         MenuItem coffee = getCoffeeFromData(coffeeType,addOns);
         total.setText("Total: $"+ format(coffee.itemPrice() * quantity));
+    }
+
+    public void addCoffeeToBasket(View view){
+        String coffeeCode = getCode();
+        SharedPreferences preferences = getSharedPreferences("data_shared",MODE_PRIVATE);
+        String json = preferences.getString("basket",null);
+        if (json != null) {
+            Gson gson = new Gson();
+            Type type = new TypeToken<ArrayList<String>>(){}.getType();
+            ArrayList<String> basket = gson.fromJson(json, type);
+            basket.add(coffeeCode);
+            /**
+             * Section end
+             */
+            SharedPreferences pref = getSharedPreferences("data_shared",MODE_PRIVATE);
+            Gson g = new Gson();
+            String jsonToPut = g.toJson(basket);
+            SharedPreferences.Editor newEdit = pref.edit();
+            newEdit.putString("basket",jsonToPut);
+            newEdit.apply();
+            BasketItem basketItem = getCoffeeBasketItem();
+            Toast.makeText(view.getContext(),basketItem.toString()+" Added.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private BasketItem getCoffeeBasketItem(){
+        boolean sc = sweetCreamBox.isChecked();
+        boolean m = mochaBox.isChecked();
+        boolean fv = vanillaBox.isChecked();
+        boolean c = caramelBox.isChecked();
+        boolean ic = creamBox.isChecked();
+        HashSet<AddOn> addOns = new HashSet<>();
+        if(sc){
+            addOns.add(AddOn.SWEETCREAM);
+        }
+        if(m){
+            addOns.add(AddOn.MOCHA);
+        }
+        if(fv){
+            addOns.add(AddOn.FRENCHVANILLA);
+        }
+        if(c){
+            addOns.add(AddOn.CARAMEL);
+        }
+        if(ic){
+            addOns.add(AddOn.IRISHCREAM);
+        }
+        String coffeeType = coffeeSizeSpinner.getSelectedItem().toString();
+        int quantity = Integer.parseInt(coffeeAmountSpinner.getSelectedItem().toString());
+        MenuItem coffee = getCoffeeFromData(coffeeType,addOns);
+        return new BasketItem(coffee,quantity);
+    }
+
+    private String getCode(){
+        String code = "Z ";
+        boolean sc = sweetCreamBox.isChecked();
+        boolean m = mochaBox.isChecked();
+        boolean fv = vanillaBox.isChecked();
+        boolean c = caramelBox.isChecked();
+        boolean ic = creamBox.isChecked();
+        if(sc){
+            code += "true ";
+        }else{
+            code += "false ";
+        }
+        if(m){
+            code += "true ";
+        }else{
+            code += "false ";
+        }
+        if(fv){
+            code += "true ";
+        }else{
+            code += "false ";
+        }
+        if(c){
+            code += "true ";
+        }else{
+            code += "false ";
+        }
+        if(ic){
+            code += "true ";
+        }else{
+            code += "false ";
+        }
+        String coffeeType = coffeeSizeSpinner.getSelectedItem().toString();
+        code += (coffeeType +" ");
+        String amount = coffeeAmountSpinner.getSelectedItem().toString();
+        code += amount;
+        Log.d(code,code);
+        return code;
     }
 
     private String format(double num){

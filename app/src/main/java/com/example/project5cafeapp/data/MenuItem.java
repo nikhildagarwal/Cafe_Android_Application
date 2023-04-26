@@ -3,6 +3,8 @@
  */
 package com.example.project5cafeapp.data;
 
+import com.example.project5cafeapp.cofee.Coffee;
+
 /**
  * Abstract class MenuItem
  * Super class to all menu item classes: coffees, yeast donuts, cake donuts, and donut holes
