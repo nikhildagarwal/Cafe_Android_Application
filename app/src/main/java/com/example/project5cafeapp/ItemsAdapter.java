@@ -1,3 +1,6 @@
+/**
+ * Project package
+ */
 package com.example.project5cafeapp;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -29,6 +32,10 @@ import com.example.project5cafeapp.donut.flavors.YeastFlavor;
 
 import java.util.ArrayList;
 
+/**
+ * This class is an adapter class that is used to instantiate an adapter for the RecyclerView
+ * The RecyclerView is used for purchasing donuts
+ */
 class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsHolder>{
     private Context context; //need the context to inflate the layout
     private ArrayList<Item> items; //need the data binding to each row of RecyclerView
@@ -87,6 +94,10 @@ class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsHolder>{
         private Button btn_add;
         private ConstraintLayout parentLayout; //this is the row layout
 
+        /**
+         * locates each view of the rows in the RecyclerView and also calls a method for the button
+         * @param itemView
+         */
         public ItemsHolder(@NonNull View itemView) {
             super(itemView);
             tv_name = itemView.findViewById(R.id.tv_flavor);
@@ -96,10 +107,12 @@ class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsHolder>{
             parentLayout = itemView.findViewById(R.id.rowLayout);
             setAddButtonOnClick(itemView); //register the onClicklistener for the button on each row.
 
-            /* set onClickListener for the row layout,
-             * clicking on a row will navigate to another Activity
-             */
+
             parentLayout.setOnClickListener(new View.OnClickListener() {
+                /** set onClickListener for the row layout,
+                 * clicking on a row will navigate to a new activity which is ItemSelectedActivity
+                 * In the new view, the user will be able to pick the amount of donuts they wish to purchase
+                 */
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(itemView.getContext(), ItemSelectedActivity.class);
@@ -107,12 +120,7 @@ class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsHolder>{
                     itemView.getContext().startActivity(intent);
                 }
             });
-            /* Alternatively, use a lamda expression to set the onClickListener for the row layout
-            parentLayout.setOnClickListener(view -> {
-                    Intent intent = new Intent(itemView.getContext(), ItemSelectedActivity.class);
-                    intent.putExtra("ITEM", tv_name.getText());
-                    itemView.getContext().startActivity(intent);
-                }); */
+
         }
 
         /**
@@ -122,20 +130,39 @@ class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsHolder>{
          */
         private void setAddButtonOnClick(@NonNull View itemView) {
             btn_add.setOnClickListener(new View.OnClickListener() {
+                /**
+                 * When clicking the button in any of the rows of the RecyclerView, an AlertDialog will be triggered
+                 * The AlertDialog will show the user the donut flavor
+                 * @param view The view that was clicked.
+                 */
                 @Override
                 public void onClick(View view) {
                     AlertDialog.Builder alert = new AlertDialog.Builder(itemView.getContext());
                     alert.setTitle("Description");
                     alert.setMessage(tv_name.getText().toString());
-                    //handle the "YES" click
-                    //this method only has the alertdialog so far, the order is not actually added yet to the basket
                     alert.setPositiveButton("done", new DialogInterface.OnClickListener() {
+                        /**
+                         * When closing the AlertDialog, a fading message will be shown on the bottom of the screen
+                         * The fading message will say "Description Closed."
+                         * @param dialog the dialog that received the click
+                         * @param which the button that was clicked (ex.
+                         *              {@link DialogInterface#BUTTON_POSITIVE}) or the position
+                         *              of the item clicked
+                         */
                         public void onClick(DialogInterface dialog, int which) {
                             Toast.makeText(itemView.getContext(),
                                     "Description Closed.", Toast.LENGTH_LONG).show();
                         }
-                        //handle the "NO" click
+
                     }).setNegativeButton("", new DialogInterface.OnClickListener() {
+                        /**
+                         * When closing the AlertDialog, a fading message will be shown on the bottom of the screen
+                         * The fading message will say "Description Closed."
+                         * @param dialog the dialog that received the click
+                         * @param which the button that was clicked (ex.
+                         *              {@link DialogInterface#BUTTON_POSITIVE}) or the position
+                         *              of the item clicked
+                         */
                         public void onClick(DialogInterface dialog, int which) {
                             Toast.makeText(itemView.getContext(),
                                     "Description Closed.", Toast.LENGTH_LONG).show();
