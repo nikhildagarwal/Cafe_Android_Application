@@ -1,3 +1,6 @@
+/**
+ * Project package
+ */
 package com.example.project5cafeapp;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +35,12 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+/**
+ * This class is the activity for activity_coffee.xml
+ * Contains methods to set up the view and adapters
+ * Contains methods to calculate coffee prices depending on the user's coffee size, amount, and add-ons
+ * @author Nikhil Agarwal, Hyeon Oh
+ */
 public class coffeeActivity extends AppCompatActivity{
 
     private Spinner coffeeSizeSpinner;
@@ -48,6 +57,13 @@ public class coffeeActivity extends AppCompatActivity{
     private CheckBox creamBox;
     private Button addToOrder;
 
+    /**
+     * Sets up the view and adapters for the spinners
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,10 +88,22 @@ public class coffeeActivity extends AppCompatActivity{
         addToOrder = findViewById(R.id.button);
 
         coffeeAmountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            /**
+             * Selecting an amount from the coffeeAmountSpinner will update the price
+             * @param parent The AdapterView where the selection happened
+             * @param view The view within the AdapterView that was clicked
+             * @param position The position of the view in the adapter
+             * @param id The row id of the item that is selected
+             */
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 updatePrice(view);
             }
+
+            /**
+             * Updates the total price text field
+             * @param parent The AdapterView that now contains no selected item.
+             */
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 total.setText("$0.00");
@@ -83,10 +111,22 @@ public class coffeeActivity extends AppCompatActivity{
         });
 
         coffeeSizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            /**
+             * Updates the price in the view based on the coffee size chosen
+             * @param parent The AdapterView where the selection happened
+             * @param view The view within the AdapterView that was clicked
+             * @param position The position of the view in the adapter
+             * @param id The row id of the item that is selected
+             */
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 updatePrice(view);
             }
+
+            /**
+             * Updates the total price text field
+             * @param parent The AdapterView that now contains no selected item.
+             */
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 total.setText("$0.00");
@@ -94,6 +134,10 @@ public class coffeeActivity extends AppCompatActivity{
         });
     }
 
+    /**
+     * Contains logic that will update the price based on the user's choice of coffee add-ons, amount, and size
+     * @param view
+     */
     public void updatePrice(View view){
         boolean sc = sweetCreamBox.isChecked();
         boolean m = mochaBox.isChecked();
@@ -122,6 +166,10 @@ public class coffeeActivity extends AppCompatActivity{
         total.setText("Total: $"+ format(coffee.itemPrice() * quantity));
     }
 
+    /**
+     * This method contains the logic to add the coffee order to the basket view
+     * @param view
+     */
     public void addCoffeeToBasket(View view){
         String coffeeCode = getCode();
         SharedPreferences preferences = getSharedPreferences("data_shared",MODE_PRIVATE);
@@ -145,6 +193,10 @@ public class coffeeActivity extends AppCompatActivity{
         }
     }
 
+    /**
+     * Fetches the coffee basket item which will be used in addCoffeeToBasket()
+     * @return
+     */
     private BasketItem getCoffeeBasketItem(){
         boolean sc = sweetCreamBox.isChecked();
         boolean m = mochaBox.isChecked();
@@ -173,6 +225,10 @@ public class coffeeActivity extends AppCompatActivity{
         return new BasketItem(coffee,quantity);
     }
 
+    /**
+     * Contains coffee logic to decrease or increase coffee prices depending on how many add-ons are chosen
+     * @return
+     */
     private String getCode(){
         String code = "Z ";
         boolean sc = sweetCreamBox.isChecked();
@@ -213,6 +269,11 @@ public class coffeeActivity extends AppCompatActivity{
         return code;
     }
 
+    /**
+     * Formats the pricing text
+     * @param num
+     * @return
+     */
     private String format(double num){
         num = Math.round(num * 100.00) / 100.00;
         String numString = Double.toString(num);
@@ -225,6 +286,12 @@ public class coffeeActivity extends AppCompatActivity{
         return parts[0]+"."+parts[1];
     }
 
+    /**
+     * Returns the user's chosen coffee size along with add-ons
+     * @param coffeeType
+     * @param addOns
+     * @return
+     */
     private Coffee getCoffeeFromData(String coffeeType,HashSet<AddOn> addOns){
         switch(coffeeType){
             case "Short":
