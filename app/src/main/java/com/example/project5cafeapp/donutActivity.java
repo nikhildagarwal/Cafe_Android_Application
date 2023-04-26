@@ -1,3 +1,6 @@
+/**
+ * Project package
+ */
 package com.example.project5cafeapp;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +17,12 @@ import com.example.project5cafeapp.donut.DonutHole;
 import com.example.project5cafeapp.donut.YeastDonut;
 
 import java.util.ArrayList;
+
+/**
+ * This class is activity/controller for the activity_donut.xml
+ * Contains methods that sets up the view and adapters
+ * Contains methods that sets up the menu items consisting of different donut flavors/types
+ */
 public class donutActivity extends AppCompatActivity {
 
     //Declare an instance of ArrayList to hold the items to be display with the RecyclerView
