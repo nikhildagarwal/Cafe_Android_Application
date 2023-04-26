@@ -99,34 +99,7 @@ public class ItemSelectedActivity extends AppCompatActivity {
         alert.setMessage(donutAmountSpinner.getSelectedItem().toString() +" x "+ donutFlavorSelected.getText()+"\n"+price.getText().toString().split(" ")[1]);
         alert.setPositiveButton("yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                MenuItem menuItem = getMenuItem(donutFlavorSelected.getText().toString());
-                String amount = donutAmountSpinner.getSelectedItem().toString();
-                BasketItem basketItem = new BasketItem(menuItem,Integer.parseInt(amount));
-                /**
-                 * Add basketItem to basket
-                 */
-                SharedPreferences preferences = getSharedPreferences("data_shared",MODE_PRIVATE);
-                String json = preferences.getString("basket",null);
-
-                if (json != null) {
-                    Gson gson = new Gson();
-                    Type type = new TypeToken<ArrayList<String>>(){}.getType();
-                    ArrayList<String> basket = gson.fromJson(json, type);
-                    Log.d("basket",basket.toString());
-                    String basketCode = menuItem.getMenuItemType()+" "+amount;
-                    basket.add(basketCode);
-                    Log.d("basket",basket.toString());
-                    /**
-                     * Section end
-                     */
-                    SharedPreferences pref = getSharedPreferences("data_shared",MODE_PRIVATE);
-                    Gson g = new Gson();
-                    String jsonToPut = g.toJson(basket);
-                    SharedPreferences.Editor newEdit = pref.edit();
-                    newEdit.putString("basket",jsonToPut);
-                    newEdit.apply();
-                    Toast.makeText(view.getContext(),basketItem.toString()+" Added.", Toast.LENGTH_LONG).show();
-                }
+                addToBasket(view);
             }
             //handle the "NO" click
         }).setNegativeButton("no", new DialogInterface.OnClickListener() {
@@ -137,8 +110,37 @@ public class ItemSelectedActivity extends AppCompatActivity {
         });
         AlertDialog dialog = alert.create();
         dialog.show();
+    }
 
+    private void addToBasket(View view){
+        MenuItem menuItem = getMenuItem(donutFlavorSelected.getText().toString());
+        String amount = donutAmountSpinner.getSelectedItem().toString();
+        BasketItem basketItem = new BasketItem(menuItem,Integer.parseInt(amount));
+        /**
+         * Add basketItem to basket
+         */
+        SharedPreferences preferences = getSharedPreferences("data_shared",MODE_PRIVATE);
+        String json = preferences.getString("basket",null);
 
+        if (json != null) {
+            Gson gson = new Gson();
+            Type type = new TypeToken<ArrayList<String>>(){}.getType();
+            ArrayList<String> basket = gson.fromJson(json, type);
+            Log.d("basket",basket.toString());
+            String basketCode = menuItem.getMenuItemType()+" "+amount;
+            basket.add(basketCode);
+            Log.d("basket",basket.toString());
+            /**
+             * Section end
+             */
+            SharedPreferences pref = getSharedPreferences("data_shared",MODE_PRIVATE);
+            Gson g = new Gson();
+            String jsonToPut = g.toJson(basket);
+            SharedPreferences.Editor newEdit = pref.edit();
+            newEdit.putString("basket",jsonToPut);
+            newEdit.apply();
+            Toast.makeText(view.getContext(),basketItem.toString()+" Added.", Toast.LENGTH_LONG).show();
+        }
     }
 
     private String formatDouble(double ourDouble){

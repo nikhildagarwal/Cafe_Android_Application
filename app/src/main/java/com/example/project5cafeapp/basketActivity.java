@@ -91,6 +91,7 @@ public class basketActivity extends AppCompatActivity {
                 if(previousPosition==-1){
                     Toast.makeText(basketView.getContext(), "Nothing Selected to Remove!", Toast.LENGTH_SHORT).show();
                 }else{
+
                     BasketItem selected = adapter.getItem(previousPosition);
                     adapter.remove(selected);
                     SharedPreferences preferences = getSharedPreferences("data_shared",MODE_PRIVATE);
