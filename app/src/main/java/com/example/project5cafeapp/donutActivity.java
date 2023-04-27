@@ -38,7 +38,9 @@ public class donutActivity extends AppCompatActivity {
     /**
      * Get the references of all instances of Views defined in the layout file, set up the list of
      * items to be display in the RecyclerView.
-     * @param savedInstanceState
+     * @param savedInstanceState If the activity is being re-initialized after
+     *      previously being shut down then this Bundle contains the data it most
+     *      recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +58,7 @@ public class donutActivity extends AppCompatActivity {
      * Helper method to set up the data (the Model of the MVC).
      */
     private void setupMenuItems() {
-        /*
-         * Item names are defined in a String array under res/string.xml.
-         * Your item names might come from other places, such as an external file, or the database
-         * from the backend.
-         */
         String [] itemNames = getResources().getStringArray(R.array.itemNames);
-        /* Add the items to the ArrayList.
-           item price set , should change later to actual price depending on donut type and such
-         */
         CakeDonut c1 = new CakeDonut();
         YeastDonut y1 = new YeastDonut();
         DonutHole d1 = new DonutHole();

@@ -43,18 +43,59 @@ import java.util.HashSet;
  */
 public class coffeeActivity extends AppCompatActivity{
 
+    /**
+     * spinner drop down
+     */
     private Spinner coffeeSizeSpinner;
+    /**
+     * Spinner drop down
+     */
     private Spinner coffeeAmountSpinner;
+
+    /**
+     * Size arrays
+     */
     private String [] coffeeSizes = {"Short", "Tall", "Grande", "Venti"};
+    /**
+     * Amount arrays
+     */
     private String [] coffeeAmount = {"1", "2", "3", "4", "5"};
+    /**
+     * Adapter for views
+     */
     private ArrayAdapter<String> adapter1;
+    /**
+     * Adapter for views
+     */
     private ArrayAdapter<String> adapter2;
+
+    /**
+     * Text Field total
+      */
     private TextView total;
+    /**
+     * Check Box item
+     */
     private CheckBox sweetCreamBox;
+    /**
+     * Check Box item
+     */
     private CheckBox mochaBox;
+    /**
+     * Check Box item
+     */
     private CheckBox vanillaBox;
+    /**
+     * Check Box item
+     */
     private CheckBox caramelBox;
+    /**
+     * Check Box item
+     */
     private CheckBox creamBox;
+    /**
+     * Add to order button
+     */
     private Button addToOrder;
 
     /**
@@ -136,7 +177,7 @@ public class coffeeActivity extends AppCompatActivity{
 
     /**
      * Contains logic that will update the price based on the user's choice of coffee add-ons, amount, and size
-     * @param view
+     * @param view default view
      */
     public void updatePrice(View view){
         boolean sc = sweetCreamBox.isChecked();
@@ -168,7 +209,7 @@ public class coffeeActivity extends AppCompatActivity{
 
     /**
      * This method contains the logic to add the coffee order to the basket view
-     * @param view
+     * @param view default view
      */
     public void addCoffeeToBasket(View view){
         String coffeeCode = getCode();
@@ -195,7 +236,7 @@ public class coffeeActivity extends AppCompatActivity{
 
     /**
      * Fetches the coffee basket item which will be used in addCoffeeToBasket()
-     * @return
+     * @return Basket item based on form data
      */
     private BasketItem getCoffeeBasketItem(){
         boolean sc = sweetCreamBox.isChecked();
@@ -227,7 +268,7 @@ public class coffeeActivity extends AppCompatActivity{
 
     /**
      * Contains coffee logic to decrease or increase coffee prices depending on how many add-ons are chosen
-     * @return
+     * @return String code to parse later
      */
     private String getCode(){
         String code = "Z ";

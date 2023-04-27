@@ -27,6 +27,11 @@ public abstract class MenuItem{
     @Override
     public abstract boolean equals(Object obj);
 
+    /**
+     * Returns a code string that is later parsed in our activity java classes.
+     * Take only the first letters of all data.
+     * @return a string code of "letter, flavor"
+     */
     public String getMenuItemType(){
         String itemAsString = this.toString();
         String result = "";

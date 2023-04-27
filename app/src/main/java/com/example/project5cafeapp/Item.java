@@ -7,15 +7,24 @@ package com.example.project5cafeapp;
  * This class defines the data structure of Item which will be used in the RecyclerView
  */
 public class Item {
+    /**
+     * Item Name String
+     */
     private String itemName;
+    /**
+     * Positin index of image
+     */
     private int image;
-    private String unitPrice; //for demo purpose, the unitPrice is of String type
+    /**
+     * String price total
+     */
+    private String unitPrice;
 
     /**
      * Parameterized constructor.
-     * @param itemName
-     * @param image
-     * @param unitPrice
+     * @param itemName name of item
+     * @param image image of item
+     * @param unitPrice unit Price String of item
      */
     public Item(String itemName, int image, String unitPrice) {
         this.itemName = itemName;

@@ -38,14 +38,42 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 public class basketActivity extends AppCompatActivity {
-
+    /**
+     * Basket View
+     */
     private ListView basketView;
+    /**
+     * Total Text Field
+     */
     private TextView total;
+    /**
+     * Tax field
+     */
     private TextView tax;
+    /**
+     * Tax + total field
+     */
     private TextView basketTotal;
+    /**
+     * Remove button
+     */
     private Button removeButton;
+    /**
+     * add button
+     */
     private Button addButton;
+    /**
+     * Previous index of selected basket item
+     */
     private int previousPosition = -1;
+
+    /**
+     * Sets up the view and adapters for the spinners
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 

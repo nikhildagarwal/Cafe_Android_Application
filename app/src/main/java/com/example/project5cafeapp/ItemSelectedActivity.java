@@ -58,7 +58,6 @@ public class ItemSelectedActivity extends AppCompatActivity {
      * @param savedInstanceState If the activity is being re-initialized after
      *     previously being shut down then this Bundle contains the data it most
      *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
-     *
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +118,7 @@ public class ItemSelectedActivity extends AppCompatActivity {
     /**
      * When clicking on the "Add to Basket" button, the user will be met with an alert dialog
      * The alert dialog will notify the users whether they want to add the donut order to the basket
-     * @param view
+     * @param view default view
      */
     public void addDonutToBasket(View view){
         AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
@@ -159,7 +158,7 @@ public class ItemSelectedActivity extends AppCompatActivity {
 
     /**
      * adds the donut order to the basket
-     * @param view
+     * @param view default view
      */
     private void addToBasket(View view){
         MenuItem menuItem = getMenuItem(donutFlavorSelected.getText().toString());
@@ -192,8 +191,8 @@ public class ItemSelectedActivity extends AppCompatActivity {
 
     /**
      * formats the price
-     * @param ourDouble
-     * @return
+     * @param ourDouble double we want to format
+     * @return String in format $0.00
      */
     private String formatDouble(double ourDouble){
         return format(Math.round(ourDouble*100.00) / 100.00);
@@ -201,8 +200,8 @@ public class ItemSelectedActivity extends AppCompatActivity {
 
     /**
      * Fetches the MenuItem which is the donut flavor type
-     * @param name
-     * @return
+     * @param name name of menuItem
+     * @return the corresponding menuItem with data
      */
     private MenuItem getMenuItem(String name){
         String[] nameArray = name.split(" ");
@@ -260,8 +259,8 @@ public class ItemSelectedActivity extends AppCompatActivity {
 
     /**
      * formatting for the price
-     * @param num
-     * @return
+     * @param num double we are formatting
+     * @return truncates the decimal to 2 places
      */
     private String format(double num){
         String numString = Double.toString(num);

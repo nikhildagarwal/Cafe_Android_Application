@@ -41,6 +41,11 @@ class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsHolder>{
     private ArrayList<Item> items; //need the data binding to each row of RecyclerView
     public static final int QUICK_ADD_QUANTITY = 1;
 
+    /**
+     * Constructor for Class
+     * @param context data for this context
+     * @param items list of items
+     */
     public ItemsAdapter(Context context, ArrayList<Item> items) {
         this.context = context;
         this.items = items;
