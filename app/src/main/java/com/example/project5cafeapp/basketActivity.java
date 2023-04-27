@@ -217,7 +217,6 @@ public class basketActivity extends AppCompatActivity {
                                     return;
                                 }
                                 orders.add(orderString);
-                                Log.d("order",orders.toString());
                                 /**
                                  * Section end
                                  */
@@ -312,7 +311,6 @@ public class basketActivity extends AppCompatActivity {
      */
     private BasketItem extractMenuItem(String code){
         String[] codes = code.split(" ");
-        Log.d("array",Arrays.toString(codes));
         if(codes[0].equals("C")){
             switch(codes[1]){
                 case "Strawberry":

@@ -306,7 +306,6 @@ public class coffeeActivity extends AppCompatActivity{
         code += (coffeeType +" ");
         String amount = coffeeAmountSpinner.getSelectedItem().toString();
         code += amount;
-        Log.d(code,code);
         return code;
     }
 

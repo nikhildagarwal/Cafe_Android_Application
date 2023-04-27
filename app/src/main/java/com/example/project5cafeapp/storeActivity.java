@@ -81,7 +81,6 @@ public class storeActivity extends AppCompatActivity {
             Gson gson = new Gson();
             Type type = new TypeToken<ArrayList<String>>(){}.getType();
             orders = gson.fromJson(json, type);
-            Log.d("s",orders.toString());
             ArrayList<Order> reformat = new ArrayList<>();
             for(int j = 0;j<orders.size();j++){
                 String[] parts = orders.get(j).split("%");
@@ -89,7 +88,6 @@ public class storeActivity extends AppCompatActivity {
                 ArrayList<BasketItem> basket = new ArrayList<>();
                 for(int i = 1;i<parts.length-1;i++){
                     String currString = parts[i];
-                    Log.d("sup",currString);
                     String[] subParts = currString.split(" ");
                     MenuItem menuItem = null;
                     if(subParts[3].equals("-")){
