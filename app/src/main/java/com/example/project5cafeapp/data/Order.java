@@ -96,7 +96,7 @@ public class Order {
         if(orderNumber == EMPTY){
             return "No Orders Yet";
         }
-        String output = "";
+        String output = this.getOrderNumber()+":\n\n";
         for(int i = 0;i<orderList.size();i++){
             output += (orderList.get(i).toString() + "\n");
         }

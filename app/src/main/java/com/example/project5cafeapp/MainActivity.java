@@ -37,7 +37,11 @@ public class MainActivity extends AppCompatActivity {
             ArrayList<String> initBasket = new ArrayList<>();
             Gson gson = new Gson();
             String json = gson.toJson(initBasket);
+            ArrayList<String> initOrders = new ArrayList<>();
+            Gson gsonNext = new Gson();
+            String jsonNext = gsonNext.toJson(initOrders);
             SharedPreferences.Editor editor = pref.edit();
+            editor.putString("orders",jsonNext);
             editor.putString("basket", json);
             editor.putBoolean("visited", true);
             editor.apply();

@@ -56,8 +56,6 @@ public class ItemSelectedActivity extends AppCompatActivity {
         donutAmountSpinner.setAdapter(adapter);
 
         btn_itemName = findViewById(R.id.btn1);
-        //Intent intent = getIntent();
-        //btn_itemName.setText(intent.getStringExtra("ITEM"));
 
         donutFlavor = findViewById(R.id.donutFlavorSelected);
         Intent intent = getIntent();
@@ -126,10 +124,8 @@ public class ItemSelectedActivity extends AppCompatActivity {
             Gson gson = new Gson();
             Type type = new TypeToken<ArrayList<String>>(){}.getType();
             ArrayList<String> basket = gson.fromJson(json, type);
-            Log.d("basket",basket.toString());
             String basketCode = menuItem.getMenuItemType()+" "+amount;
             basket.add(basketCode);
-            Log.d("basket",basket.toString());
             /**
              * Section end
              */

@@ -2,10 +2,10 @@ package com.example.project5cafeapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import androidx.appcompat.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,6 +44,7 @@ public class basketActivity extends AppCompatActivity {
     private TextView tax;
     private TextView basketTotal;
     private Button removeButton;
+    private Button addButton;
     private int previousPosition = -1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ public class basketActivity extends AppCompatActivity {
         total = findViewById(R.id.editTextText2);
         tax = findViewById(R.id.editTextText3);
         basketTotal = findViewById(R.id.editTextText4);
+        addButton = findViewById(R.id.button2);
 
         SharedPreferences preferences = getSharedPreferences("data_shared",MODE_PRIVATE);
         String json = preferences.getString("basket",null);
@@ -85,6 +87,7 @@ public class basketActivity extends AppCompatActivity {
             }
         });
         removeItems(adapter,basket);
+        addBasketToOrder(adapter,basket);
     }
 
     public void removeItems(ArrayAdapter<BasketItem> adapter,ArrayList<String> basket){
@@ -116,7 +119,78 @@ public class basketActivity extends AppCompatActivity {
             }
         });
     }
-    //Toast.makeText(basketView.getContext(), "Button clicked!", Toast.LENGTH_SHORT).show();
+
+    public void addBasketToOrder(ArrayAdapter<BasketItem> adapter, ArrayList<String> basket){
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(view.getContext());
+                alert.setTitle("Place Order");
+                alert.setMessage("Would you like to place this order?");
+                alert.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        try{
+                            String orderString = "";
+                            for(int i = 0;i<adapter.getCount();i++){
+                                orderString += "%"+adapter.getItem(i).toString();
+                            }
+                            int n = (int)(Math.random() * 900000000) + 100000000;
+                            orderString = n + orderString;
+                            orderString +=("%"+basketTotal.getText());
+                            SharedPreferences preferences = getSharedPreferences("data_shared",MODE_PRIVATE);
+                            String json = preferences.getString("orders",null);
+                            if(json!=null){
+                                Gson gson = new Gson();
+                                Type type = new TypeToken<ArrayList<String>>(){}.getType();
+                                ArrayList<String> orders = gson.fromJson(json, type);
+                                if(adapter.isEmpty()){
+                                    Toast.makeText(view.getContext(),
+                                            "Basket is Empty!", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                orders.add(orderString);
+                                Log.d("order",orders.toString());
+                                /**
+                                 * Section end
+                                 */
+                                SharedPreferences pref = getSharedPreferences("data_shared",MODE_PRIVATE);
+                                Gson g = new Gson();
+                                String jsonToPut = g.toJson(orders);
+                                SharedPreferences.Editor newEdit = pref.edit();
+                                newEdit.putString("orders",jsonToPut);
+
+                                Toast.makeText(view.getContext(),"Order Number "+n+" Has Been Placed.", Toast.LENGTH_SHORT).show();
+                                ArrayList<String> newBasket = new ArrayList<>();
+                                Gson GSON = new Gson();
+                                String JSON = GSON.toJson(newBasket);
+                                newEdit.putString("basket",JSON);
+                                newEdit.apply();
+                                total.setText("Sub-Total: $0.00");
+                                tax.setText("Sales Tax: $0.00");
+                                basketTotal.setText("Total: $0.00");
+                                ArrayAdapter<BasketItem> adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, new ArrayList<BasketItem>());
+                                basketView.setAdapter(adapter);
+                            }else{
+                                Toast.makeText(view.getContext(),
+                                        "Basket is Empty!", Toast.LENGTH_SHORT).show();
+                            }
+                        }catch (Exception e){
+                            Toast.makeText(view.getContext(),
+                                    "Basket is Empty!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }).setNegativeButton("no", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(view.getContext(),
+                                "Order Not Placed.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                AlertDialog dialog = alert.create();
+                dialog.show();
+            }
+        });
+    }
+
 
     private void displayTotal(ArrayList<BasketItem> convertedBasket){
         double totalSum = 0.0;
