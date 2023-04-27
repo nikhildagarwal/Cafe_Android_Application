@@ -197,24 +197,28 @@ public class storeActivity extends AppCompatActivity {
      * @return HashSet for addOns, so that we can create a coffee object.
      */
     private HashSet<AddOn> getAddOns(String item){
-        String right = item.split("\\[")[1];
-        String contents = right.split("\\]")[0];
-        String[] addOnStrings = contents.split(", ");
-        HashSet<AddOn> ourSet = new HashSet<>();
-        for(int i = 0;i<addOnStrings.length;i++){
-            if(addOnStrings[i].equals("Sweet Cream")){
-                ourSet.add(AddOn.SWEETCREAM);
-            }else if(addOnStrings[i].equals("French Vanilla")){
-                ourSet.add(AddOn.FRENCHVANILLA);
-            }else if(addOnStrings[i].equals("Irish Cream")){
-                ourSet.add(AddOn.IRISHCREAM);
-            }else if(addOnStrings[i].equals("Caramel")){
-                ourSet.add(AddOn.CARAMEL);
-            }else{
-                ourSet.add(AddOn.MOCHA);
+        try{
+            String right = item.split("\\[")[1];
+            String contents = right.split("\\]")[0];
+            String[] addOnStrings = contents.split(", ");
+            HashSet<AddOn> ourSet = new HashSet<>();
+            for(int i = 0;i<addOnStrings.length;i++){
+                if(addOnStrings[i].equals("Sweet Cream")){
+                    ourSet.add(AddOn.SWEETCREAM);
+                }else if(addOnStrings[i].equals("French Vanilla")){
+                    ourSet.add(AddOn.FRENCHVANILLA);
+                }else if(addOnStrings[i].equals("Irish Cream")){
+                    ourSet.add(AddOn.IRISHCREAM);
+                }else if(addOnStrings[i].equals("Caramel")){
+                    ourSet.add(AddOn.CARAMEL);
+                }else{
+                    ourSet.add(AddOn.MOCHA);
+                }
             }
+            return ourSet;
+        }catch (Exception e){
+            return new HashSet<AddOn>();
         }
-        return ourSet;
     }
 
     /**
