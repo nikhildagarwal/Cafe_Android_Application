@@ -5,6 +5,7 @@ package com.example.project5cafeapp;
 
 /**
  * This class defines the data structure of Item which will be used in the RecyclerView
+ * @author Hyeon Oh, Nikhil Agarwal
  */
 public class Item {
     /**

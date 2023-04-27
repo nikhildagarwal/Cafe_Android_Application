@@ -22,12 +22,15 @@ import java.util.ArrayList;
  * This class is activity/controller for the activity_donut.xml
  * Contains methods that sets up the view and adapters
  * Contains methods that sets up the menu items consisting of different donut flavors/types
+ * @author Nikhil Agarwal, Hyeon Oh
  */
 public class donutActivity extends AppCompatActivity {
 
-    //Declare an instance of ArrayList to hold the items to be display with the RecyclerView
+    /**
+     * Declare an instance of ArrayList to hold the items to be display with the RecyclerView
+     */
     private ArrayList<Item> items = new ArrayList<>();
-    /* All the images associated with the menu items are stored in the res/drawable folder
+    /** All the images associated with the menu items are stored in the res/drawable folder
      *  Each image are accessed with the resourse ID, which is an integer.
      *  We need an array of integers to hold the resource IDs. Make sure the index of a given
      *  ID is consistent with the index of the associated menu item in the ArrayList.

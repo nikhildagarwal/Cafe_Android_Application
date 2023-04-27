@@ -42,15 +42,37 @@ import java.util.ArrayList;
 /**
  * When an item displayed in a row on the RecyclerView is clicked, the user will be redirected to a new activity
  * In this activity, the user will be able to select the amount of donuts from the donut flavor picked and add the donut order to the basket
+ * @author Nikhil Agarwal, Hyeon Oh
  */
 public class ItemSelectedActivity extends AppCompatActivity {
+
+    /**
+     * Button for Item Name
+     */
     private Button btn_itemName;
-    private ImageView donutImageView;
+    /**
+     * Donut Amount spinner dropdown
+     */
     private Spinner donutAmountSpinner;
+    /**
+     * TextView of donutFlavor
+     */
     private TextView donutFlavor;
+    /**
+     * The selected donut from donutFlavorSelected
+     */
     private TextView donutFlavorSelected;
+    /**
+     * TextField for price
+     */
     private TextView price;
+    /**
+     * The values we want to add to spinner
+     */
     private String [] donutAmounts = {"1", "2", "3", "4", "5","6"};
+    /**
+     * Adapter list for view
+     */
     private ArrayAdapter<String> adapter;
 
     /**

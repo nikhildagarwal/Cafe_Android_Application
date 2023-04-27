@@ -34,13 +34,37 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+/**
+ * This class is the activity for activity_store.xml
+ * Contains methods to set up the view and adapters
+ * Contains methods to delete orders, display order totals.
+ * @author Nikhil Agarwal, Hyeon Oh
+ */
 public class storeActivity extends AppCompatActivity {
 
+    /**
+     * ListView for storeOrders
+     */
     private ListView storeOrdersView;
+    /**
+     * Previous position of selected store Order
+     */
     private int previousPosition = -1;
+    /**
+     * TextView for total
+     */
     private TextView total;
+    /**
+     * Remove Button
+     */
     private Button removeButton;
 
+    /**
+     * Sets up the view and adapters for the spinners
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +108,14 @@ public class storeActivity extends AppCompatActivity {
         }
         ArrayAdapter<Order> finalAdapter = adapter;
         storeOrdersView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            /**
+             * Even Listener for selecting and item on the storeOrderView
+             * @param parent The AdapterView where the click happened.
+             * @param view The view within the AdapterView that was clicked (this
+             *            will be a view provided by the adapter)
+             * @param position The position of the view in the adapter.
+             * @param id The row id of the item that was clicked.
+             */
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 view.setBackgroundColor(Color.parseColor("#DDDDDD"));
@@ -102,9 +134,18 @@ public class storeActivity extends AppCompatActivity {
         removeButtonClicked(adapter,orders);
     }
 
+    /**
+     * Removes and order from the adapter and the local storage array before updating "local storage"
+     * @param adapter Adapter array for listView
+     * @param orders orders array from the "local storage"
+     */
     public void removeButtonClicked(ArrayAdapter<Order> adapter,ArrayList<String> orders){
         removeButton = findViewById(R.id.orderRemoveButton);
         removeButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * OnClick event listener for removeButton
+             * @param v The view that was clicked.
+             */
             @Override
             public void onClick(View v) {
                 if(previousPosition==-1){
@@ -131,6 +172,12 @@ public class storeActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * return Coffee Object from data
+     * @param subParts data to parse
+     * @param item Full string before item split.
+     * @return Coffee as a menuItem
+     */
     private MenuItem getCoffee(String[] subParts,String item){
         HashSet<AddOn> addOns = getAddOns(item);
         switch(subParts[5]){
@@ -146,6 +193,11 @@ public class storeActivity extends AppCompatActivity {
         return null;
     }
 
+    /**
+     * helper method to get hashSet of addOns from the data code
+     * @param item full String item.
+     * @return HashSet for addOns, so that we can create a coffee object.
+     */
     private HashSet<AddOn> getAddOns(String item){
         String right = item.split("\\[")[1];
         String contents = right.split("\\]")[0];
@@ -167,6 +219,11 @@ public class storeActivity extends AppCompatActivity {
         return ourSet;
     }
 
+    /**
+     * Gets Donut Object from code strings
+     * @param subParts code to parse
+     * @return menuItem menuItem
+     */
     private MenuItem getDonut(String[] subParts){
         switch(subParts[2]){
             case "Yeast":
@@ -179,6 +236,11 @@ public class storeActivity extends AppCompatActivity {
         return null;
     }
 
+    /**
+     * Helper method to get corresponding DonutHole from data
+     * @param code String to parse and decode
+     * @return donutHole from data
+     */
     private DonutHole getHoleDonut(String code){
         switch(code){
             case "Glazed":
@@ -191,6 +253,11 @@ public class storeActivity extends AppCompatActivity {
         return null;
     }
 
+    /**
+     * Helper method to get corresponding CakeDonut from data
+     * @param code String to parse and decode
+     * @return CakeDonut from data
+     */
     private CakeDonut getCakeDonut(String code){
         switch (code){
             case "Plain":
@@ -203,6 +270,11 @@ public class storeActivity extends AppCompatActivity {
         return null;
     }
 
+    /**
+     * Helper method to get corresponding YeastDonut from data
+     * @param code String to parse and decode
+     * @return YeastDonut from data
+     */
     private YeastDonut getYeastDonut(String code){
         switch(code){
             case "Classic":

@@ -37,6 +37,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 
+/**
+ * This class is the activity for activity_basket.xml
+ * Contains methods to set up the view and adapters
+ * Contains methods to remove basket items and place orders of current basket items.
+ * @author Nikhil Agarwal, Hyeon Oh
+ */
 public class basketActivity extends AppCompatActivity {
     /**
      * Basket View
@@ -76,7 +82,6 @@ public class basketActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basket);
         total = findViewById(R.id.editTextText2);
@@ -100,6 +105,14 @@ public class basketActivity extends AppCompatActivity {
         displayTotal(convertedBasket);
         displayTax(total.getText().toString());
         basketView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            /**
+             * OnItemClick even listener (connects to frontend).
+             * @param parent The AdapterView where the click happened.
+             * @param view The view within the AdapterView that was clicked (this
+             *            will be a view provided by the adapter)
+             * @param position The position of the view in the adapter.
+             * @param id The row id of the item that was clicked.
+             */
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 view.setBackgroundColor(Color.parseColor("#DDDDDD"));
@@ -118,9 +131,18 @@ public class basketActivity extends AppCompatActivity {
         addBasketToOrder(adapter,basket);
     }
 
+    /**
+     * removes basket items from our basket while also deleting it from "local storage"
+     * @param adapter adapter Array for View
+     * @param basket ArrayList of strings that is shared amongst all views
+     */
     public void removeItems(ArrayAdapter<BasketItem> adapter,ArrayList<String> basket){
         removeButton = findViewById(R.id.button4);
         removeButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * On click listener for the remove button
+             * @param v The view that was clicked.
+             */
             @Override
             public void onClick(View v) {
                 if(previousPosition==-1){
@@ -148,14 +170,32 @@ public class basketActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Wraps all the basket orders into one order object and inputs it into our local storage orders arrayList.
+     * Clears the contents of the current basket.
+     * Resets the page to clear all text view to "$0.00"
+     * @param adapter adapter Array for View
+     * @param basket ArrayList of strings that is shared amongst all views
+     */
     public void addBasketToOrder(ArrayAdapter<BasketItem> adapter, ArrayList<String> basket){
         addButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * On click listener for the add to order button
+             * @param view The view that was clicked.
+             */
             @Override
             public void onClick(View view) {
                 android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(view.getContext());
                 alert.setTitle("Place Order");
                 alert.setMessage("Would you like to place this order?");
                 alert.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    /**
+                     * Alert dialog listener for adding to orders
+                     * @param dialog the dialog that received the click
+                     * @param which the button that was clicked (ex.
+                     *              {@link DialogInterface#BUTTON_POSITIVE}) or the position
+                     *              of the item clicked
+                     */
                     public void onClick(DialogInterface dialog, int which) {
                         try{
                             String orderString = "";
@@ -208,6 +248,13 @@ public class basketActivity extends AppCompatActivity {
                         }
                     }
                 }).setNegativeButton("no", new DialogInterface.OnClickListener() {
+                    /**
+                     * Alert dialog listener when user selects "no"
+                     * @param dialog the dialog that received the click
+                     * @param which the button that was clicked (ex.
+                     *              {@link DialogInterface#BUTTON_POSITIVE}) or the position
+                     *              of the item clicked
+                     */
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(view.getContext(),
                                 "Order Not Placed.", Toast.LENGTH_SHORT).show();
@@ -219,7 +266,10 @@ public class basketActivity extends AppCompatActivity {
         });
     }
 
-
+    /**
+     * Sets the display text to a certain number using the contents of an arrayList of basketItems
+     * @param convertedBasket list of basketItems we want to sum
+     */
     private void displayTotal(ArrayList<BasketItem> convertedBasket){
         double totalSum = 0.0;
         for(int i = 0;i<convertedBasket.size();i++){
@@ -228,6 +278,11 @@ public class basketActivity extends AppCompatActivity {
         total.setText("Sub-Total: $"+format(Math.round(totalSum * 100.00) / 100.00));
     }
 
+    /**
+     * Sets the display text for total.
+     * Overload method, uses the adapter array for a list instead.
+     * @param adapter
+     */
     private void displayTotal(ArrayAdapter<BasketItem> adapter){
         double totalSum = 0.0;
         for(int i =0;i<adapter.getCount();i++){
@@ -236,6 +291,10 @@ public class basketActivity extends AppCompatActivity {
         total.setText("Sub-Total: $"+format(Math.round(totalSum * 100.00) / 100.00));
     }
 
+    /**
+     * Displays the text of the tax using the total value of all basket items added up.
+     * @param totalSum
+     */
     private void displayTax(String totalSum){
         double num = Double.parseDouble(totalSum.split("\\$")[1]);
         double numSave = num;
@@ -245,6 +304,12 @@ public class basketActivity extends AppCompatActivity {
         basketTotal.setText("Total: $"+format(Math.round((numSave+numAfter)*100.00)/100.00));
     }
 
+    /**
+     * Extracts a menuItem from a code string.
+     * Parses the code string and returns the corresponding menuItem.
+     * @param code String code
+     * @return MenuItem menuItem
+     */
     private BasketItem extractMenuItem(String code){
         String[] codes = code.split(" ");
         Log.d("array",Arrays.toString(codes));
@@ -312,6 +377,11 @@ public class basketActivity extends AppCompatActivity {
         return null;
     }
 
+    /**
+     * Formats a double into a String rounded to 2 decimal places.
+     * @param num double that we want to convert and truncate.
+     * @return String formatted as 0.00
+     */
     private String format(double num){
         String numString = Double.toString(num);
         String back = numString.split("\\.")[1];

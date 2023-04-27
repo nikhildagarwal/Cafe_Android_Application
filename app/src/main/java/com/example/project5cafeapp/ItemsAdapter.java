@@ -35,6 +35,7 @@ import java.util.ArrayList;
 /**
  * This class is an adapter class that is used to instantiate an adapter for the RecyclerView
  * The RecyclerView is used for purchasing donuts
+ * @author Hyeon Oh, Nikhil Agarwal
  */
 class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsHolder>{
     private Context context; //need the context to inflate the layout
@@ -53,8 +54,8 @@ class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsHolder>{
 
     /**
      * This method will inflate the row layout for the items in the RecyclerView
-     * @param parent
-     * @param viewType
+     * @param parent parent layer
+     * @param viewType the type of the view
      * @return
      */
     @NonNull
@@ -94,14 +95,26 @@ class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsHolder>{
      * Get the views from the row layout file, similar to the onCreate() method.
      */
     public static class ItemsHolder extends RecyclerView.ViewHolder {
+        /**
+         * TextView for price
+         */
         private TextView tv_name, tv_price;
+        /**
+         * TextView for item
+         */
         private ImageView im_item;
+        /**
+         * Button for info
+         */
         private Button btn_add;
+        /**
+         * constraints for this item
+         */
         private ConstraintLayout parentLayout; //this is the row layout
 
         /**
          * locates each view of the rows in the RecyclerView and also calls a method for the button
-         * @param itemView
+         * @param itemView view of items.
          */
         public ItemsHolder(@NonNull View itemView) {
             super(itemView);
@@ -114,9 +127,11 @@ class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsHolder>{
 
 
             parentLayout.setOnClickListener(new View.OnClickListener() {
-                /** set onClickListener for the row layout,
+                /**
+                 * set onClickListener for the row layout,
                  * clicking on a row will navigate to a new activity which is ItemSelectedActivity
                  * In the new view, the user will be able to pick the amount of donuts they wish to purchase
+                 * @param view The view that was clicked.
                  */
                 @Override
                 public void onClick(View view) {
@@ -131,7 +146,7 @@ class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsHolder>{
         /**
          * Set the onClickListener for the button on each row.
          * Clicking on the button will create an AlertDialog with the options of YES/NO.
-         * @param itemView
+         * @param itemView view of items
          */
         private void setAddButtonOnClick(@NonNull View itemView) {
             btn_add.setOnClickListener(new View.OnClickListener() {

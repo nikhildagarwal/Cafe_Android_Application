@@ -28,12 +28,25 @@ import java.util.ArrayList;
  * This class is the main activity/main controller of the mobile application
  * This is the first activity page that the user will see upon entering the application
  * Defines the image buttons used to redirect the user to other views
+ * @author Hyeon Oh, Nikhil Agarwal
  */
 public class MainActivity extends AppCompatActivity {
 
+    /**
+     * Main Buttons for donut
+     */
     private ImageButton mainDonutButton;
+    /**
+     * Main Buttons for coffee
+     */
     private ImageButton mainCoffeeButton;
+    /**
+     * Main Buttons for basket
+     */
     private ImageButton orderBasketButton;
+    /**
+     * Main Buttons for store
+     */
     private ImageButton storeOrdersButton;
 
     /**

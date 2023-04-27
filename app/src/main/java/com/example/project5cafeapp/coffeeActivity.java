@@ -312,8 +312,8 @@ public class coffeeActivity extends AppCompatActivity{
 
     /**
      * Formats the pricing text
-     * @param num
-     * @return
+     * @param num double that we want to format
+     * @return The string that we have truncated.
      */
     private String format(double num){
         num = Math.round(num * 100.00) / 100.00;
@@ -329,9 +329,9 @@ public class coffeeActivity extends AppCompatActivity{
 
     /**
      * Returns the user's chosen coffee size along with add-ons
-     * @param coffeeType
-     * @param addOns
-     * @return
+     * @param coffeeType Size string of coffee
+     * @param addOns HashSet of addons.
+     * @return Creates a coffee object and returns reference to it.
      */
     private Coffee getCoffeeFromData(String coffeeType,HashSet<AddOn> addOns){
         switch(coffeeType){
