@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.project5cafeapp'
+    namespace 'com.test.cafe_app'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.project5cafeapp"
+        applicationId "com.test.cafe_app"
         minSdk 28
         targetSdk 33
         versionCode 1
